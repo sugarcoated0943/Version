@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>iRecord</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/freelancer.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <script src ="js/jquery.js"></script>
+    <script src="js/myjs.js"></script>
+
+    <script>
+    	$(document).ready(function(){
+
+		$('#submit').click(function(){
+					$.ajax({
+					type: 'POST',
+					url: 'comments.php', 
+					data: $('#frmMe').serialize(),
+					success: function(data){
+						if(data){
+							alert('Posted!');
+							location.href ="comment.html";
+						}
+					}
+					});
+		});
+    	});
+    </script>
+</head>
+<body id="page-top">
+
+<nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">iRecord</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="page-scroll">
+                        <a href="index.html">Home</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+	<br><br><br><br><br>
+	<div class="container" id="updates">
+		<center>
+		<h2>Group Feed</h2>
+        <hr class="star-primary">
+        </center>
+		
+        <div class="form-group">
+        <form action ="" method="post" id="frmMe">
+		  <textarea class="form-control" rows="5" name="comment" id="comment" placeholder="Write your post here..."></textarea>
+		  <input type="text" id="date" name ="date">
+		  <input type="submit" name ="submit" id="submit" class="btn btn-primary pull-right">
+		</form>
+
+		</div>
+	</div>
+	<br><br><br><br><hr>
+	<div class="container" id="divPost">
+		
+	</div>
+<script type="text/javascript">
+	var today = new Date();   
+    var dd = today.getDate();
+    var day = today.getDay()-1;
+    var mm = today.getMonth();
+    var yy = today.getFullYear();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+    var ms = today.getMilliseconds();
+if(m < 10){
+	m = "0" + m;
+}
+
+var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+];
+
+var dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat","Sun"];
+document.getElementById('date').value = dayNames[day] + " " + dd + " " + monthNames[mm] + " " + yy + " " + h + ":" + s;
+$('#date').hide();
+
+$.ajax({
+			type: 'GET',
+			url: 'get.php',
+			dataType:'html',
+			data: {},
+			success: function(data){
+				if(data){
+					$('#divPost').html(data)
+				}	
+			} 
+		});
+
+Hide();
+</script>
+<script src="js/myjs.js"></script>
+<
+</body>
+</html>
